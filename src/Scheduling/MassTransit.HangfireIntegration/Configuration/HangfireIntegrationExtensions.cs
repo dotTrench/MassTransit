@@ -8,7 +8,7 @@
 
     public static class HangfireIntegrationExtensions
     {
-        [Obsolete("Use the new .AddHangfireConsumers() method, combined with AddHangfire(), to configure the Quartz scheduler")]
+        [Obsolete("Use the new .AddHangfireConsumers() method, combined with AddHangfire(), to configure the Hangfire scheduler")]
         public static void UseHangfireScheduler(this IBusFactoryConfigurator configurator, IBusRegistrationContext context, string queueName = "hangfire",
             Action<BackgroundJobServerOptions>? configureServer = null)
         {

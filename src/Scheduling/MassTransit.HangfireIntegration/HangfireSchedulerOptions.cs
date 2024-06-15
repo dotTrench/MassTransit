@@ -13,7 +13,7 @@ namespace MassTransit
         public IHangfireComponentResolver ComponentResolver { get; set; } = DefaultHangfireComponentResolver.Instance;
 
         /// <summary>
-        /// The queue name for the quartz service, defaults to "hangfire".
+        /// The queue name for the hangfire service, defaults to "hangfire".
         /// </summary>
         public string QueueName { get; set; } = "hangfire";
 
