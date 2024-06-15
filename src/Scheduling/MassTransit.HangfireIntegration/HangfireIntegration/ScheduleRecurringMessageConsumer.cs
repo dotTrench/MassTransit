@@ -41,10 +41,27 @@ namespace MassTransit.HangfireIntegration
                 jobKey,
                 x => x.SendMessage(message, null!),
                 context.Message.Schedule.CronExpression,
-                new RecurringJobOptions { TimeZone = tz });
+                new RecurringJobOptions
+                {
+                    TimeZone = tz,
+                    MisfireHandling = GetMisfireHandleMode(context.Message.Schedule.MisfirePolicy)
+                });
 
             LogContext.Debug?.Log("Scheduled: {Key}", jobKey);
             return Task.CompletedTask;
+        }
+
+        static MisfireHandlingMode GetMisfireHandleMode(MissedEventPolicy policy)
+        {
+            switch (policy)
+            {
+                case MissedEventPolicy.Skip:
+                    return MisfireHandlingMode.Ignorable;
+                case MissedEventPolicy.Send:
+                    return MisfireHandlingMode.Strict;
+                default:
+                    return MisfireHandlingMode.Relaxed;
+            }
         }
     }
 }
